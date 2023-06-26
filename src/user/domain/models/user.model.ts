@@ -49,10 +49,10 @@ export class User {
 
   toJson(): UserInterface {
     return {
-      name: this.name,
-      username: this.username,
-      passwordHash: this.passwordHash,
-      id: this.id,
+      id: this.getId(),
+      name: this.getName(),
+      username: this.getUsername(),
+      passwordHash: this.getPasswordHash(),
     };
   }
 
@@ -60,11 +60,11 @@ export class User {
     return bcrypt.compareSync(password, this.passwordHash);
   }
 
-  toEntity() {
+  toEntity(): UserInterface {
     return {
-      name: this.name,
-      username: this.username,
-      passwordHash: this.passwordHash,
+      name: this.getName(),
+      username: this.getUsername(),
+      passwordHash: this.getPasswordHash(),
     };
   }
 }
