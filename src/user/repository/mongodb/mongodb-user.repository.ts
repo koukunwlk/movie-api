@@ -24,4 +24,12 @@ export class MongoDBUserRepository implements UserRepository {
     }
     return User.createFromPersistence(mongoDBUser.toJSON());
   }
+
+  async findById(id: string): Promise<User | null> {
+    const mongoDBUser = await this.mongoDBUserModel.findById(id).exec();
+    if (!mongoDBUser) {
+      return null;
+    }
+    return User.createFromPersistence(mongoDBUser.toJSON());
+  }
 }
