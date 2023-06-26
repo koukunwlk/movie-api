@@ -18,7 +18,7 @@ export class UserService {
     try {
       this.userRepository.create(createdUser);
     } catch (error) {
-      throw new Error(error);
+      throw new BadRequestException("Couldn't create user");
     }
   }
 
