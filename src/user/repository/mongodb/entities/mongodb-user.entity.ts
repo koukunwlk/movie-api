@@ -12,4 +12,13 @@ export class MongoDBUser {
   passwordHash: string;
 }
 
-export const MongoDBUserSchema = SchemaFactory.createForClass(MongoDBUser);
+export const MongoDBUserSchema = SchemaFactory.createForClass(MongoDBUser).set(
+  'toJSON',
+  {
+    transform: (_, ret) => {
+      ret.id = ret._id.toString();
+      delete ret._id;
+      delete ret.__v;
+    },
+  },
+);
