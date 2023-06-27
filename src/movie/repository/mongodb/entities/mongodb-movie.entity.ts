@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 
-@Schema()
+@Schema({
+  autoCreate: false,
+  autoIndex: false,
+})
 export class MongoDBMovie {
   @Prop({ required: true, unique: true })
   imdbId: string;

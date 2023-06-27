@@ -30,8 +30,8 @@ export class MovieService {
   }
 
   async mostLikedMovies() {
-    const mostLikedMovies = await this.movieRepository.findAll();
-    return this.sortMoviesByLikes(mostLikedMovies);
+    const mostLikedMovies = await this.movieRepository.getMostLikedMovies();
+    return mostLikedMovies;
   }
 
   async like(movieId: string, userId: string) {
@@ -41,11 +41,5 @@ export class MovieService {
     }
     movie.receiveLike(userId);
     await this.movieRepository.update(movie);
-  }
-
-  private sortMoviesByLikes(movies: Movie[]) {
-    return movies
-      .sort((a, b) => b.getLikesCount() - a.getLikesCount())
-      .filter((movie) => movie.getLikesCount() > 0);
   }
 }

@@ -6,4 +6,5 @@ export abstract class MovieRepository {
   abstract findById: (id: string) => Promise<Movie | null>;
   abstract findAll: () => Promise<Movie[]>;
   abstract update: (movie: Movie) => Promise<void>;
+  abstract getMostLikedMovies: () => Promise<Movie[]>;
 }

@@ -1,7 +1,10 @@
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import { Model, PipelineStage, Document } from 'mongoose';
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { MongoDBMovie } from './entities/mongodb-movie.entity';
+import {
+  MongoDBMovie,
+  MongoDBMovieSchema,
+} from './entities/mongodb-movie.entity';
 import { MovieRepository } from '../movie.repository';
 import { Movie, MovieInterface } from '../../domain/models/movie.model';
 
@@ -52,5 +55,43 @@ export class MongoDBMovieRepository implements MovieRepository {
     await this.mongoDBMovieModel
       .updateOne({ imdbId: Movie.getImdbId() }, movieEntity)
       .exec();
+  }
+
+  async getMostLikedMovies(): Promise<Movie[]> {
+    const pipeline = this.generatePipeline();
+    const mongoDBMovies = await this.mongoDBMovieModel
+      .aggregate(pipeline)
+      .exec();
+    console.log(mongoDBMovies);
+    return mongoDBMovies.map((mongoDBMovie) =>
+      Movie.createFromPersistence(mongoDBMovie as MovieInterface),
+    );
+  }
+
+  private generatePipeline(): PipelineStage[] {
+    const pipeline: PipelineStage[] = [
+      {
+        $match: {
+          $expr: {
+            $gt: [{ $size: '$userLikesIds' }, 0],
+          },
+        },
+      },
+      {
+        $addFields: {
+          likesCount: { $size: '$userLikesIds' },
+        },
+      },
+      {
+        $sort: {
+          likesCount: -1,
+        },
+      },
+      {
+        $limit: 10,
+      },
+    ];
+
+    return pipeline;
   }
 }

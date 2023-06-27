@@ -3,6 +3,13 @@
   "rootDir": ".",
   "testEnvironment": "node",
   "testRegex": ".e2e-spec.ts$",
+  "collectCoverageFrom": [
+    "src/**/*.(t|j)s",
+    "!src/**/*.provider.(t|j)s",
+    "!src/**/repository/**/*.ts",
+    "!src/**/*.module.(t|j)s",
+    "!src/auth"
+  ],
   "transform": {
     "^.+\\.(t|j)s$": "ts-jest"
   }
