@@ -17,7 +17,7 @@ class MovieRepositoryMock implements MovieRepository {
   findOne = jest.fn();
   update = jest.fn();
   findById = jest.fn();
-  mostLikedMovies = jest.fn();
+  getMostLikedMovies = jest.fn();
 }
 
 describe('MovieService', () => {
@@ -47,6 +47,12 @@ describe('MovieService', () => {
     movieRepositoryMock.findById.mockImplementation((id) => {
       const movie = moviesMock.find((movie) => movie.getId() === id);
       return movie ? movie : null;
+    });
+
+    movieRepositoryMock.getMostLikedMovies.mockImplementation(() => {
+      return moviesMock
+        .sort((a, b) => b.getLikesCount() - a.getLikesCount())
+        .filter((movie) => movie.getLikesCount() > 0);
     });
   });
 
