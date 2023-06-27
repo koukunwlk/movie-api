@@ -80,7 +80,6 @@ describe('UserService', () => {
     it('should call userRepository.findOne', async () => {
       // Arrange
       const username = users[0].getUsername();
-      console.log(username);
 
       // Act
       await userService.findByUsername(username);

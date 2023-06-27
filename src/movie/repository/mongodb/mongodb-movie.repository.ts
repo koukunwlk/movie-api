@@ -62,7 +62,6 @@ export class MongoDBMovieRepository implements MovieRepository {
     const mongoDBMovies = await this.mongoDBMovieModel
       .aggregate(pipeline)
       .exec();
-    console.log(mongoDBMovies);
     return mongoDBMovies.map((mongoDBMovie) =>
       Movie.createFromPersistence(mongoDBMovie as MovieInterface),
     );
