@@ -109,7 +109,7 @@ describe('MovieService', () => {
       const id = 'xpto';
 
       // Assert
-      expect(movieService.findById(id)).rejects.toThrow('Movie not found');
+      expect(movieService.findById(id)).rejects.toThrow('Filme não encontrado');
     });
   });
 
@@ -153,7 +153,9 @@ describe('MovieService', () => {
       const id = 'xpto';
 
       // Assert
-      expect(movieService.like(id, 'user1')).rejects.toThrow('Movie not found');
+      expect(movieService.like(id, 'user1')).rejects.toThrow(
+        'Filme não encontrado',
+      );
     });
 
     it('should return the most liked movies', async () => {

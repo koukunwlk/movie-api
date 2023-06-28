@@ -9,7 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('auth')
+@Controller('/api/auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
@@ -22,7 +22,7 @@ export class AuthController {
       credentials.password,
     );
     if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
+      throw new UnauthorizedException('Usuário ou senha inválidos');
     }
     return this.authService.login(user);
   }

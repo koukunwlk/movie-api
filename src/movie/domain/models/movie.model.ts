@@ -5,12 +5,14 @@ export interface MovieInterface {
   description: string;
   userLikesIds?: string[];
   likesCount?: number;
+  image: string;
 }
 
 export class Movie {
   private id?: string;
   private imdbId: string;
   private title: string;
+  private image: string;
   private description: string;
   private userLikesIds?: string[];
   private likesCount?: number;
@@ -22,6 +24,7 @@ export class Movie {
     this.description = movie.description;
     this.userLikesIds = movie.userLikesIds || [];
     this.likesCount = movie.likesCount;
+    this.image = movie.image;
   }
 
   public static create(movie: MovieInterface): Movie {
@@ -64,12 +67,17 @@ export class Movie {
     return this.userLikesIds;
   }
 
+  public getImage(): string {
+    return this.image;
+  }
+
   public toEntity(): MovieInterface {
     return {
       imdbId: this.getImdbId(),
       title: this.getTitle(),
       description: this.getDescription(),
       userLikesIds: this.getUserLikesIds(),
+      image: this.getImage(),
     };
   }
 
@@ -81,6 +89,7 @@ export class Movie {
       description: this.getDescription(),
       userLikesIds: this.getUserLikesIds(),
       likesCount: this.getLikesCount(),
+      image: this.getImage(),
     };
   }
 }

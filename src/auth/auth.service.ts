@@ -18,10 +18,12 @@ export class AuthService {
     return null;
   }
 
-  async login(user: User): Promise<{ accessToken: string }> {
+  async login(
+    user: User,
+  ): Promise<{ accessToken: string; username: string; name: string }> {
     const payload = { username: user.getUsername(), sub: user.getId() };
     const accessToken = this.jwtService.sign(payload);
-    return { accessToken };
+    return { accessToken, username: user.getUsername(), name: user.getName() };
   }
 
   async validateUserById(userId: string): Promise<User | null> {

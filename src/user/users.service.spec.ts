@@ -47,7 +47,7 @@ describe('UserService', () => {
       expect(userRepositoryMock.create).toHaveBeenCalledTimes(1);
     });
 
-    it('should throw an error if the user already exists', async () => {
+    it('should throw an error if the Usuário já cadastrado', async () => {
       // Arrange
       const userInfo = generateUserInfo();
       userRepositoryMock.findOne.mockImplementationOnce(() => {
@@ -58,7 +58,7 @@ describe('UserService', () => {
       const promise = userService.create(userInfo);
 
       // Assert
-      expect(promise).rejects.toThrow('User already exists');
+      expect(promise).rejects.toThrow('Usuário já cadastrado');
     });
 
     it('should throw an error if the user could not be created', async () => {
@@ -72,7 +72,7 @@ describe('UserService', () => {
       const promise = userService.create(userInfo);
 
       // Assert
-      expect(promise).rejects.toThrow("Couldn't create user");
+      expect(promise).rejects.toThrow('Não foi possívelcriar o usuário');
     });
   });
 

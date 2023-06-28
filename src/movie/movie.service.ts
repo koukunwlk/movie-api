@@ -20,7 +20,7 @@ export class MovieService {
   async findById(id: string) {
     const movie = await this.movieRepository.findById(id);
     if (!movie) {
-      throw new BadRequestException('Movie not found');
+      throw new BadRequestException('Filme não encontrado');
     }
     return movie;
   }
@@ -37,7 +37,7 @@ export class MovieService {
   async like(movieId: string, userId: string) {
     const movie = await this.findByImdbId(movieId);
     if (!movie) {
-      throw new BadRequestException('Movie not found');
+      throw new BadRequestException('Filme não encontrado');
     }
     movie.receiveLike(userId);
     await this.movieRepository.update(movie);

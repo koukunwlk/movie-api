@@ -11,14 +11,14 @@ export class UserService {
   ) {}
   async create(createUserDto: CreateUserDto) {
     if (await this.findByUsername(createUserDto.username)) {
-      throw new BadRequestException('User already exists');
+      throw new BadRequestException('Usuário já cadastrado');
     }
 
     const createdUser = User.create(createUserDto);
     try {
       this.userRepository.create(createdUser);
     } catch (error) {
-      throw new BadRequestException("Couldn't create user");
+      throw new BadRequestException('Não foi possível criar o usuário');
     }
   }
 

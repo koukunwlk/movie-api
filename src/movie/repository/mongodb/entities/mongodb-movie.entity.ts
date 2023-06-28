@@ -15,6 +15,9 @@ export class MongoDBMovie {
   description: string;
 
   @Prop({ required: true })
+  image: string;
+
+  @Prop({ required: true })
   userLikesIds: string[];
 }
 

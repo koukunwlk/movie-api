@@ -3,6 +3,7 @@ import {
   Post,
   Body,
   Get,
+  Patch,
   Request,
   UseGuards,
   Param,
@@ -11,12 +12,13 @@ import { MovieService } from './movie.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { AuthGuard } from '@nestjs/passport';
 
-@Controller('movie')
+@Controller('/api/movie')
 export class MovieController {
   constructor(private readonly moviesService: MovieService) {}
 
   @Post()
   create(@Body() createMovieDto: CreateMovieDto) {
+    console.log(createMovieDto);
     return this.moviesService.create(createMovieDto);
   }
 
@@ -26,8 +28,10 @@ export class MovieController {
   }
 
   @UseGuards(AuthGuard())
-  @Post(':id/like')
+  @Patch(':id/like')
   like(@Request() req, @Param('id') id: string) {
+    console.log('user id', req.user.id);
+    console.log('movie id', id);
     return this.moviesService.like(id, req.user.id);
   }
 
